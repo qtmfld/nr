@@ -5,83 +5,30 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex, nofollow" />
     <title>my text-only news reader</title>
-    <script>
-    function newListItem(item) {
-      const title = item.getElementsByTagName("title")[0];
-      const link = item.getElementsByTagName("link")[0];
-
-      const tn = document.createTextNode(title.textContent);
-      const a = document.createElement("a");
-      a.setAttribute("href", link.textContent);
-      a.appendChild(tn);
-
-      const li = document.createElement("li");
-      li.appendChild(a);
-      return li;
-    }
-
-    function getXML(url, cook) {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      xhr.responseType = "document";
-      xhr.onload = () => {
-        if (xhr.readyState === xhr.DONE && xhr.status === 200) {
-          const items = xhr.responseXML.getElementsByTagName("item");
-	  cook(items);
-	}
-      }
-      xhr.send();
-    }
-
-    function update(category) {
-      const url = "https://www.nhk.or.jp/rss/news/" + category + ".xml";
-      getXML(url, (items) => {
-        const section = document.getElementById(category);
-        const ul = section.getElementsByTagName("ul")[0];
-        const n = items.length;
-        for (i = 0; i < n && i < 20; i++) {
-          const li = newListItem(items[i]);
-	  ul.appendChild(li);
-        }
-      });
-    }
-
-    </script>
-    <style>
-      body {
-        margin: 2em;
-      }
-
-      h2 {
-        border-bottom: 1px solid #eee;
-      }
-    </style>
+    <script src="rss.js"></script>
+    <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <h1>my text-only news reader</h1>
-    <article>
-      <h2>From NHK ニュース</h2>
-      <p><a href="https://www.nhk.or.jp/toppage/rss/">NHK RSS</a>を読み込んで表示します。</p>
-      <menu>
-        <a href="#cat0" onClick="update('cat0')">トップ</a> |
-        <a href="#cat1" onClick="update('cat1')">社会</a> |
-        <a href="#cat2" onClick="update('cat2')">文化・エンタメ</a> |
-        <a href="#cat3" onClick="update('cat3')">科学・医療</a> |
-        <a href="#cat4" onClick="update('cat4')">政治</a> |
-        <a href="#cat5" onClick="update('cat5')">経済</a> |
-        <a href="#cat6" onClick="update('cat6')">国際</a> |
-        <a href="#cat7" onClick="update('cat7')">スポーツ</a>
-      </menu>
-      <main>
-        <section id="cat0"><h2>トップ</h2><ul></ul></section>
-        <section id="cat1"><h2>社会</h2><ul></ul></section>
-        <section id="cat2"><h2>文化・エンタメ</h2><ul></ul></section>
-        <section id="cat3"><h2>科学・医療</h2><ul></ul></section>
-        <section id="cat4"><h2>政治</h2><ul></ul></section>
-        <section id="cat5"><h2>経済</h2><ul></ul></section>
-        <section id="cat6"><h2>国際</h2><ul></ul></section>
-        <section id="cat7"><h2>スポーツ</h2><ul></ul></section>
-      </main>
-    </article>
+    <h1><a href="https://www.nhk.or.jp/toppage/rss/">NHK RSS</a> を分野ごとに読み込んで表示できます。</h1>
+    <nav>
+      <a href="#cat0" onClick="update('cat0')">トップ</a>
+      <a href="#cat1" onClick="update('cat1')">社会</a>
+      <a href="#cat2" onClick="update('cat2')">文化・エンタメ</a>
+      <a href="#cat3" onClick="update('cat3')">科学・医療</a>
+      <a href="#cat4" onClick="update('cat4')">政治</a>
+      <a href="#cat5" onClick="update('cat5')">経済</a>
+      <a href="#cat6" onClick="update('cat6')">国際</a>
+      <a href="#cat7" onClick="update('cat7')">スポーツ</a>
+    </nav>
+    <main>
+      <section id="cat0"><h2>トップ</h2><ul></ul></section>
+      <section id="cat1"><h2>社会</h2><ul></ul></section>
+      <section id="cat2"><h2>文化・エンタメ</h2><ul></ul></section>
+      <section id="cat3"><h2>科学・医療</h2><ul></ul></section>
+      <section id="cat4"><h2>政治</h2><ul></ul></section>
+      <section id="cat5"><h2>経済</h2><ul></ul></section>
+      <section id="cat6"><h2>国際</h2><ul></ul></section>
+      <section id="cat7"><h2>スポーツ</h2><ul></ul></section>
+    </main>
   </body>
 </html>
