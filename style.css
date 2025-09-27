@@ -1,15 +1,33 @@
 body {
   margin: 0;
   padding: 0;
+  color: #555;
+}
+
+a {
+  color: #555;
 }
 
 h1 {
   margin: 0;
-  padding: 0.5em;
+  padding: 0.5em 1em;
   font-size: 1em;
+}
+
+nav {
+  margin: 0;
+  padding: 0 1em;
+  font-family: sans-serif;
+  background-color: #eee;
+}
+
+main {
+  margin: 0;
+  padding: 1em;
 }
 
 h2 {
   font-size: 1em;
+  font-family: sans-serif;
   border-bottom: 1px solid #eee;
 }
