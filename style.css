@@ -14,20 +14,33 @@ h1 {
   font-size: 1em;
 }
 
-nav {
-  margin: 0;
-  padding: 0 1em;
-  font-family: sans-serif;
-  background-color: #eee;
-}
-
 main {
-  margin: 0;
-  padding: 1em;
+  margin:0;
+  padding: 0 0 3em 0;
 }
 
-h2 {
+section h2 {
+  margin: 0;
+  padding: 0.2em 1em;
+  background-color: #fff;
   font-size: 1em;
   font-family: sans-serif;
   border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+}
+
+section ul li {
+  white-space: nowrap;
+}
+
+nav {
+  margin: 0;
+  padding: 0.5em 1em;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+  font-family: sans-serif;
+  white-space: nowrap;
+  position: fixed;
+  bottom: 0;
 }

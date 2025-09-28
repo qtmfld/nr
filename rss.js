@@ -1,39 +1,53 @@
-function newListItem(item) {
-  const title = item.getElementsByTagName("title")[0];
-  const link = item.getElementsByTagName("link")[0];
-
-  const tn = document.createTextNode(title.textContent);
-  const a = document.createElement("a");
-  a.setAttribute("href", link.textContent);
-  a.appendChild(tn);
-
-  const li = document.createElement("li");
-  li.appendChild(a);
-  return li;
+function update(category) {
+  const url = "https://www.nhk.or.jp/rss/news/" + category + ".xml";
+  getXML(url, (xml) => {
+    const entries = collectEntries(xml);
+    showEntries(entries, category);
+  });
 }
 
-function getXML(url, cook) {
+function getXML(url, callback) {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", url);
   xhr.responseType = "document";
   xhr.onload = () => {
     if (xhr.readyState === xhr.DONE && xhr.status === 200) {
-      const items = xhr.responseXML.getElementsByTagName("item");
-      cook(items);
+      callback(xhr.responseXML);
     }
   }
   xhr.send();
 }
 
-function update(category) {
-  const url = "https://www.nhk.or.jp/rss/news/" + category + ".xml";
-  getXML(url, (items) => {
-    const section = document.getElementById(category);
-    const ul = section.getElementsByTagName("ul")[0];
-    const n = items.length;
-    for (i = 0; i < n && i < 20; i++) {
-      const li = newListItem(items[i]);
-      ul.appendChild(li);
-    }
-  });
+function collectEntries(xml) {
+  const items = xml.getElementsByTagName("item");
+  const entries = [];
+  for (const item of items) {
+    const title = item.getElementsByTagName("title")[0].textContent;
+    const link  = item.getElementsByTagName("link")[0].textContent;
+    const entry = { title: title, link: link };
+    entries.push(entry);
+  }
+  return entries;
+}
+
+function showEntries(entries, category) {
+  const section = document.getElementById(category);
+  const ul = section.getElementsByTagName("ul")[0];
+  const n = entries.length;
+  for (i = 0; i < n && i < 20; i++) {
+    const li = listItem(entries[i]);
+    ul.appendChild(li);
+  }
+}
+
+function listItem(entry) {
+  const li = document.createElement("li");
+  const a  = document.createElement("a");
+  const tn = document.createTextNode(entry.title);
+
+  li.appendChild(a);
+  a.appendChild(tn);
+  a.setAttribute("href", entry.link);
+
+  return li;
 }
