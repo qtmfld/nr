@@ -9,6 +9,7 @@ function update(category) {
 function getXML(url, callback) {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", url);
+  xhr.setRequestHeader("Origin", "https://qtmfld.github.io");
   xhr.responseType = "document";
   xhr.onload = () => {
     if (xhr.readyState === xhr.DONE && xhr.status === 200) {
