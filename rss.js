@@ -1,5 +1,5 @@
 function update(category) {
-  const url = "https://www.nhk.or.jp/rss/news/" + category + ".xml";
+  const url = "https://news.web.nhk/n-data/conf/na/rss/" + category + ".xml";
   getXML(url, (xml) => {
     const entries = collectEntries(xml);
     showEntries(entries, category);
